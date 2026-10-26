@@ -1,1 +1,126 @@
-Airbnb Price Prediction using Linear Regression
+Airbnb Price Analysis and Prediction.
+A Python data analysis and machine learning project using the New York City Airbnb Open Data (2019) dataset. This repository contains two Jupyter notebooks that explore Airbnb listing data and build a Linear Regression model to predict listing prices.
+Project Overview
+The project is organized into two notebooks:
+- Notebook 1 — Exploratory Data Analysis (EDA): Examines the dataset structure, data types, missing values, descriptive statistics, duplicate records, and numerical outliers. It also demonstrates price outlier capping and prepares features for analysis.
+- Notebook 2 — Airbnb Price Prediction: Preprocesses the data, encodes categorical variables, splits the data into training and testing sets, trains a Linear Regression model, and evaluates its predictions.
+Objectives
+- Understand the structure and characteristics of NYC Airbnb listings.
+- Identify missing values and inspect potential outliers.
+- Explore listing attributes such as room type, location, minimum nights, reviews, availability, and price.
+- Prepare data for machine learning.
+- Train a Linear Regression model to estimate listing prices.
+- Evaluate model performance using standard regression metrics and visualizations.
+Dataset
+The project uses the AB_NYC_2019 dataset, containing Airbnb listings in New York City.
+- Records: 48,895
+- Original columns: 16
+- Target variable: price
+- Examples of features: latitude, longitude, room type, neighbourhood, minimum nights, number of reviews, reviews per month, host listing count, and availability.
+The dataset includes listing information and host-related attributes. Ensure the dataset file is available in the location referenced by each notebook before running the code.
+Repository Structure
+The filenames below are examples. Update them to match the exact notebook filenames in your repository.
+.
+├── README.md
+├── Airbnb_EDA.ipynb
+├── Airbnb_Price_Prediction.ipynb
+└── AB_NYC_2019.csv
+If the dataset is not included in the repository, download or obtain AB_NYC_2019.csv separately and place it in the path expected by the notebook.
+Notebook 1: Exploratory Data Analysis
+This notebook focuses on understanding and cleaning the dataset.
+Key steps
+1. Import Python libraries and load the dataset.
+2. Inspect the first and last records, dataset dimensions, data types, and summary statistics.
+3. Check for duplicate rows and missing values.
+4. Examine missing values in last_review and reviews_per_month.
+5. Remove selected columns that are not used in the analysis.
+6. Visualize numerical distributions and investigate potential outliers using boxplots.
+7. Calculate the interquartile range (IQR) for price and cap values outside the calculated bounds.
+8. Encode selected categorical variables and define the feature matrix X and target variable y.
+Initial observations
+- The dataset contains 48,895 listings and 16 columns before preprocessing.
+- The last_review and reviews_per_month columns each contain 10,052 missing values in the original data.
+- The original price column ranges from 0 to 10,000, indicating that extreme values and zero-priced listings warrant further investigation.
+- The duplicate-row check returned 0 duplicate rows.
+These observations describe the original dataset output; results can change after preprocessing.
+Notebook 2: Airbnb Price Prediction
+This notebook trains a Linear Regression model to predict the listing price.
+Workflow
+1. Load the dataset and remove selected identifier or text columns.
+2. Fill missing values in reviews_per_month with 0.
+3. Apply one-hot encoding to categorical features such as neighbourhood group, neighbourhood, and room type.
+4. Separate the predictors (X) from the target (y).
+5. Split the data into training and testing sets using an 80:20 ratio.
+6. Train a LinearRegression model.
+7. Generate price predictions for the test set.
+8. Evaluate predictions using R², MAE, MSE, and RMSE.
+9. Plot actual versus predicted prices and inspect residuals.
+10. Compare mean absolute prediction error across price groups.
+Model configuration
+Setting	Value
+Algorithm	Linear Regression
+Training split	80%
+Testing split	20%
+Random state	42
+Training records	39,116
+Testing records	9,779
+Encoded input features	233
+
+
+Model results
+The following results are from the current Linear Regression notebook output.
+Metric	Result
+R² score	0.1359
+Mean Absolute Error (MAE)	68.15
+Mean Squared Error (MSE)	38,228.11
+Root Mean Squared Error (RMSE)	195.52
+
+
+Interpretation: The model's R² score is approximately 0.136, meaning it explains about 13.6% of the variation in test-set prices. The MAE is approximately 68.15 price units, while the RMSE is approximately 195.52 price units. These results indicate that this baseline model has limited predictive performance, especially for expensive listings.
+
+The error analysis by actual price group also showed higher average absolute error for expensive listings:
+Actual price group	Mean absolute error
+Cheap (≤ 100)	42.38
+Medium (> 100 to 300)	56.23
+Expensive (> 300)	346.09
+
+
+The model is a starting point, not a highly accurate pricing system. Further feature engineering and model comparison would be needed to improve performance.
+Visualizations
+The notebooks include visualizations such as:
+- Boxplots for identifying potential outliers.
+- Actual versus predicted prices.
+- Residual plots for examining prediction errors.
+- Other exploratory plots used during data analysis.
+Technologies and Libraries
+- Python
+- Google Colab
+- pandas
+- NumPy
+- Matplotlib
+- Seaborn
+- scikit-learn
+How to Run
+1. Clone the repository
+git clone <your-repository-url>
+cd <your-repository-folder>
+2. Install dependencies
+pip install pandas numpy matplotlib seaborn scikit-learn jupyter
+3. Add the dataset
+Place AB_NYC_2019.csv in the expected location, or update the dataset path in the notebook. The current notebooks use different paths/formats in their examples, so check the pd.read_csv(...) line in each notebook.
+4. Open the notebooks
+jupyter notebook
+Run the cells in order, starting with the EDA notebook and then the prediction notebook.
+Note: The prediction notebook handles missing reviews_per_month values by replacing them with 0. The EDA notebook uses a different preprocessing workflow. Run each notebook independently and verify that its cleaning steps match the intended analysis.
+
+Limitations and Future Improvements
+- The current Linear Regression model has a low R² score, so it does not explain much of the variation in listing prices.
+- Airbnb prices can be highly skewed and influenced by location, room type, amenities, demand, and other factors that may not be fully represented in the model.
+- Some preprocessing choices differ between the two notebooks; a consistent, reusable preprocessing pipeline would improve reproducibility.
+- The prediction notebook one-hot encodes neighbourhood information, which increases the number of features.
+- The model should be compared with alternatives such as Random Forest Regressor and Gradient Boosting.
+- Additional improvements could include handling zero prices, transforming the target variable, feature selection, cross-validation, and hyperparameter tuning.
+Conclusion
+This project combines exploratory data analysis with a basic machine learning workflow to investigate Airbnb listing prices in New York City. The first notebook examines the dataset, missing values, and potential outliers, while the second trains and evaluates a Linear Regression model. The baseline model provides a useful starting point, but its current evaluation metrics show that further preprocessing, feature engineering, and model comparison are needed before it can be used for reliable price prediction.
+Author
+Uha R
