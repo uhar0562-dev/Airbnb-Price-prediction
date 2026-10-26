@@ -102,8 +102,8 @@ Technologies and Libraries
 - scikit-learn
 How to Run
 1. Clone the repository
-git clone <your-repository-url>
-cd <your-repository-folder>
+git clone <https://github.com/uhar0562-dev/Airbnb-Price-prediction>
+cd <uhar0562-dev/Airbnb-Price-prediction>
 2. Install dependencies
 pip install pandas numpy matplotlib seaborn scikit-learn jupyter
 3. Add the dataset
